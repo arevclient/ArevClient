@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
-        
         :root {
             --primary: #00c8ff;
             --primary-dark: #0097b2;
@@ -59,8 +58,7 @@
         }
         
         @keyframes slideIn {
-            from { transform: translateY(calc(50px * var(--animations-enabled))); 
-                   opacity: calc(0 * var(--animations-enabled))); }
+            from { transform: translateY(calc(50px * var(--animations-enabled))); opacity: calc(0 * var(--animations-enabled))); }
             to { transform: translateY(0); opacity: 1; }
         }
         
@@ -223,6 +221,7 @@
             justify-content: center;
             gap: 20px;
             animation: slideIn 1.4s ease-out;
+            margin-bottom: 40px; /* Добавлен отступ снизу */
         }
         
         .btn-secondary {
@@ -359,10 +358,12 @@
             transform: scale(calc(1 * var(--animations-enabled) + (1 * (1 - var(--animations-enabled))));
             box-shadow: 0 15px 40px rgba(0, 200, 255, calc(0.2 * var(--animations-enabled)));
         }
-        
+ 
         .screenshot-item img {
             width: 100%;
-            height: auto;
+            height: 200px; /* Фиксированная высота для скриншотов */
+            object-fit: cover; /* Обрезать изображение, чтобы оно заполняло контейнер */
+            object-position: center; /* Центрировать изображение */
             display: block;
             transition: transform calc(0.5s * var(--animations-enabled)) ease;
         }
@@ -686,6 +687,15 @@
                 <a href="#download" class="btn">Скачать сейчас</a>
                 <a href="#features" class="btn btn-secondary">Узнать больше</a>
             </div>
+
+            <div class="social-links">
+                <a href="https://t.me/arevclient" class="social-link" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://www.youtube.com/@arevclient" class="social-link" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -768,22 +778,13 @@
                 <h2>Скачайте ArevClient прямо сейчас</h2>
                 <p>Присоединяйтесь к тысячам игроков, которые уже улучшили свой Minecraft опыт с ArevClient. Нажмите кнопку ниже, чтобы скачать последнюю версию.</p>
                 <a href="https://t.me/arevclient/68" class="btn">Скачать</a>
-                
-                <div class="social-links">
-                    <a href="https://t.me/arevclient" class="social-link" target="_blank">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@arevclient" class="social-link" target="_blank">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 ArevClient. Все права защищены. | Дизайн: DeepSeek Chat</p>
+            <p>© 2025 ArevClient. Все права защищены. | Дизайн: DeepSeek Chat</p>
         </div>
     </footer>
 
@@ -794,11 +795,9 @@
         
         // Проверяем, если это мобильное устройство
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
         if (isMobile) {
             // Показываем переключатель только на мобильных
             perfToggle.style.display = 'flex';
-            
             // Проверяем сохранённые настройки
             if (localStorage.getItem('animationsEnabled') !== null) {
                 animationsEnabled = localStorage.getItem('animationsEnabled') === 'true';
@@ -811,10 +810,8 @@
             localStorage.setItem('animationsEnabled', animationsEnabled);
             updateAnimationsState();
         });
-        
         function updateAnimationsState() {
             document.documentElement.style.setProperty('--animations-enabled', animationsEnabled ? '1' : '0');
-            
             if (animationsEnabled) {
                 perfToggle.classList.remove('active');
                 perfToggle.querySelector('span').textContent = 'Режим для слабых устройств';
@@ -834,7 +831,6 @@
             this.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-        
         // Закрываем меню при клике на пункт
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
@@ -842,7 +838,6 @@
                 navMenu.classList.remove('active');
             });
         });
-        
         // Анимации при прокрутке
         document.addEventListener('DOMContentLoaded', function() {
             const animateElements = document.querySelectorAll('.animate-on-scroll');
@@ -881,3 +876,5 @@
     </script>
 </body>
 </html>
+
+
