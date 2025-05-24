@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
         
-        /* Обновленные анимации */
+        /* Анимации */
         @keyframes float {
             0%, 100% { transform: translateX(0); }
             50% { transform: translateX(calc(-15px * var(--animations-enabled))); }
@@ -41,12 +41,6 @@
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: calc(1 - (0.4 * var(--animations-enabled))); }
-        }
-        
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
         @keyframes glow {
@@ -383,6 +377,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, calc(0.3 * var(--animations-enabled)));
             transform: scale(calc(0.95 + (0.05 * (1 - var(--animations-enabled))));
             transition: all calc(0.5s * var(--animations-enabled)) ease;
+            border: 2px solid transparent;
         }
         
         .screenshot-item {
@@ -405,6 +400,7 @@
         .screenshot-container:hover {
             transform: scale(calc(1 * var(--animations-enabled) + (1 * (1 - var(--animations-enabled))));
             box-shadow: 0 15px 40px rgba(0, 200, 255, calc(0.2 * var(--animations-enabled)));
+            border: 2px solid var(--primary);
         }
         
         .screenshot-container:hover img {
@@ -703,11 +699,6 @@
                 width: 100%;
                 max-width: 280px;
             }
-            
-            /* Квадратные скриншоты на мобильных */
-            .screenshot-container {
-                padding-top: 100%; /* 1:1 Aspect Ratio */
-            }
         }
 
         @media (min-width: 769px) {
@@ -893,7 +884,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 ArevClient. Все права защищены. | Дизайн: DeepSeek Chat</p>
+            <p>&copy; 2025 ArevClient. Все права защищены. | Не связан с Mojang AB.</p>
         </div>
     </footer>
 
