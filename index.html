@@ -17,6 +17,12 @@
             --light: #f0f8ff;
             --gradient: linear-gradient(135deg, var(--primary), var(--primary-light));
             --animations-enabled: 1;
+            --solid-color: var(--primary);
+        }
+        
+        [data-animations="disabled"] {
+            --animations-enabled: 0;
+            --gradient: var(--solid-color);
         }
         
         * {
@@ -32,7 +38,6 @@
             overflow-x: hidden;
         }
         
-        /* Анимации */
         @keyframes float {
             0%, 100% { transform: translateX(0); }
             50% { transform: translateX(calc(-15px * var(--animations-enabled))); }
@@ -58,7 +63,6 @@
             to { transform: translateY(0); opacity: 1; }
         }
         
-        /* Основные стили */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -97,14 +101,19 @@
         .logo-text {
             font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: glow 3s ease-in-out infinite;
         }
         
-        /* Соц-кнопки в шапке */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
         .header-social {
             display: flex;
             gap: 15px;
@@ -112,9 +121,9 @@
         }
 
         .header-social .social-link {
-            width: 40px; /* Увеличил размер для чёткости */
+            width: 40px;
             height: 40px;
-            font-size: 18px; /* Увеличил иконки для пропорциональности */
+            font-size: 18px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(0, 200, 255, 0.3);
             border-radius: 50%;
@@ -125,22 +134,22 @@
             transition: all 0.3s ease;
             text-align: center;
             line-height: 40px;
-            aspect-ratio: 1/1; /* Гарантирует равные размеры */
-            overflow: hidden; /* Предотвращает искажения */
-            transform: scale(1); /* Отключаем масштабирование */
-            flex-shrink: 0; /* Предотвращает сжатие */
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            transform: scale(1);
+            flex-shrink: 0;
         }
 
         .header-social .social-link i {
             margin: 0;
             display: block;
-            line-height: 40px; /* Синхронизировано с высотой */
+            line-height: 40px;
         }
 
         .header-social .social-link:hover {
             background: var(--primary);
             color: var(--dark);
-            transform: translateY(-3px); /* Только вертикальное смещение */
+            transform: translateY(-3px);
         }
         
         nav ul {
@@ -235,7 +244,7 @@
             font-size: 48px;
             font-weight: 900;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -406,7 +415,7 @@
             position: relative;
             width: 100%;
             height: 0;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             overflow: hidden;
         }
         
@@ -552,39 +561,61 @@
             font-size: 14px;
         }
         
-        /* Переключатель слабых устройств */
         .performance-toggle {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 1000;
-            display: none;
-            background: rgba(10, 10, 18, 0.8);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            padding: 8px 15px;
-            color: var(--light);
-            font-size: 14px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
+            display: flex;
             align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
         }
         
-        .performance-toggle i {
-            margin-right: 8px;
+        .toggle-label {
+            font-size: 14px;
+            color: var(--light);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            border-radius: 12px;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+        }
+        
+        .performance-toggle.active .toggle-switch {
+            background: rgba(0, 200, 255, 0.3);
+        }
+        
+        .performance-toggle.active .toggle-switch::before {
+            transform: translateX(26px);
+            background: var(--light);
+        }
+        
+        .performance-toggle.active .toggle-label {
             color: var(--primary);
         }
         
-        .performance-toggle.active {
-            background: var(--primary);
-            color: var(--dark);
-        }
-        
-        .performance-toggle.active i {
-            color: var(--dark);
-        }
-        
-        /* Бургер-меню */
         .burger-menu {
             display: none;
             width: 30px;
@@ -622,7 +653,6 @@
             transform: translateY(50%) rotate(-45deg);
         }
         
-        /* Анимации при прокрутке */
         .animate-on-scroll {
             opacity: calc(0 * (1 - var(--animations-enabled)));
             transform: translateY(calc(30px * var(--animations-enabled)));
@@ -634,26 +664,17 @@
             transform: translateY(0);
         }
         
-        /* 🔥 Мобильная адаптация 🔥 */
         @media (max-width: 768px) {
-            /* Улучшаем шапку */
             .header-content {
                 flex-direction: row;
                 justify-content: space-between;
                 padding: 15px 0;
             }
             
-            /* Показываем переключатель только на мобильных */
-            .performance-toggle {
-                display: flex;
-            }
-
-            /* Скрываем соц-кнопки в шапке на мобильных */
             .header-social {
                 display: none;
             }
 
-            /* Бургер-меню вместо обычного */
             nav ul {
                 display: none;
                 position: fixed;
@@ -683,12 +704,10 @@
                 display: block;
             }
 
-            /* Показываем бургер-меню */
             .burger-menu {
                 display: block;
             }
 
-            /* Адаптируем размеры текста */
             .hero h1 {
                 font-size: 36px;
                 padding-top: 40px;
@@ -720,7 +739,6 @@
         }
 
         @media (min-width: 769px) {
-            /* Скрываем соц-кнопки в секции скачивания на десктопе */
             .social-links {
                 display: none;
             }
@@ -739,17 +757,30 @@
                 font-size: 20px;
             }
             
-            .performance-toggle {
+            .toggle-label {
                 font-size: 12px;
-                padding: 6px 12px;
+            }
+            
+            .toggle-switch {
+                width: 40px;
+                height: 20px;
+            }
+            
+            .toggle-switch::before {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .performance-toggle.active .toggle-switch::before {
+                transform: translateX(20px);
             }
         }
     </style>
 </head>
 <body>
     <div class="performance-toggle" id="perfToggle">
-        <i class="fas fa-bolt"></i>
-        <span>Режим для слабых устройств</span>
+        <span class="toggle-label">Режим для слабых устройств</span>
+        <div class="toggle-switch"></div>
     </div>
 
     <header>
@@ -760,27 +791,29 @@
                     <span class="logo-text">ArevClient</span>
                 </div>
                 
-                <div class="header-social">
-                    <a href="https://t.me/arevclient" class="social-link" target="_blank" title="Telegram">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@arevclient" class="social-link" target="_blank" title="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+                <div class="header-right">
+                    <div class="header-social">
+                        <a href="https://t.me/arevclient" class="social-link" target="_blank" title="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@arevclient" class="social-link" target="_blank" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="burger-menu" id="burgerMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <nav>
+                        <ul id="navMenu">
+                            <li><a href="#features">Функции</a></li>
+                            <li><a href="#screenshots">Скриншоты</a></li>
+                            <li><a href="#download">Скачать</a></li>
+                        </ul>
+                    </nav>
                 </div>
-                
-                <div class="burger-menu" id="burgerMenu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <nav>
-                    <ul id="navMenu">
-                        <li><a href="#features">Функции</a></li>
-                        <li><a href="#screenshots">Скриншоты</a></li>
-                        <li><a href="#download">Скачать</a></li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </header>
@@ -788,7 +821,7 @@
     <section class="hero">
         <div class="container">
             <h1>ArevClient - мощный чит-клиент для Minecraft 1.16.5</h1>
-            <p>Откройте новые возможности в Minecraft с нашим продвинутым чит-клиентом. Улучшите свой игровой опыт с мощными функциями и удобным интерфейсом.</p>
+            <p>Откройте новые возможности в Minecraft с нашим продвинутым читовым клиентом. Улучшите свой игровой опыт с мощными функциями и удобным интерфейсом.</p>
             <div class="hero-btns">
                 <a href="#download" class="btn">Скачать сейчас</a>
                 <a href="#features" class="btn btn-secondary">Узнать больше</a>
@@ -902,49 +935,38 @@
 
     <footer>
         <div class="container">
-            <p>© 2025 ArevClient. Все права защищены. | Не связан с Mojang AB.</p>
+            <p>© 2025 ArevClient. Все права защищены. | Дизайн: DeepSeek Chat</p>
         </div>
     </footer>
 
     <script>
         // Переключатель для слабых устройств
         const perfToggle = document.getElementById('perfToggle');
-        let animationsEnabled = true;
-        
-        // Проверяем, если это мобильное устройство
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-        if (isMobile) {
-            // Показываем переключатель только на мобильных
-            perfToggle.style.display = 'flex';
-            
-            // Проверяем сохранённые настройки
-            if (localStorage.getItem('animationsEnabled') !== null) {
-                animationsEnabled = localStorage.getItem('animationsEnabled') === 'true';
-                updateAnimationsState();
+        const toggleLabel = perfToggle.querySelector('.toggle-label');
+        let animationsEnabled = localStorage.getItem('animationsEnabled') !== null 
+            ? localStorage.getItem('animationsEnabled') === 'true'
+            : true;
+
+        function updateAnimationsState() {
+            if (animationsEnabled) {
+                document.documentElement.removeAttribute('data-animations');
+                perfToggle.classList.remove('active');
+                toggleLabel.textContent = 'Режим для слабых устройств';
+            } else {
+                document.documentElement.setAttribute('data-animations', 'disabled');
+                perfToggle.classList.add('active');
+                toggleLabel.textContent = 'Включить анимации';
             }
+            localStorage.setItem('animationsEnabled', animationsEnabled);
         }
-        
+
+        updateAnimationsState();
+
         perfToggle.addEventListener('click', function() {
             animationsEnabled = !animationsEnabled;
-            localStorage.setItem('animationsEnabled', animationsEnabled);
             updateAnimationsState();
         });
-        
-        function updateAnimationsState() {
-            document.documentElement.style.setProperty('--animations-enabled', animationsEnabled ? '1' : '0');
-            
-            if (animationsEnabled) {
-                perfToggle.classList.remove('active');
-                perfToggle.querySelector('span').textContent = 'Режим для слабых устройств';
-                perfToggle.querySelector('i').className = 'fas fa-bolt';
-            } else {
-                perfToggle.classList.add('active');
-                perfToggle.querySelector('span').textContent = 'Полные анимации';
-                perfToggle.querySelector('i').className = 'fas fa-rocket';
-            }
-        }
-        
+
         // Бургер-меню
         const burgerMenu = document.getElementById('burgerMenu');
         const navMenu = document.getElementById('navMenu');
@@ -954,7 +976,6 @@
             navMenu.classList.toggle('active');
         });
         
-        // Закрываем меню при клике на пункт
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 burgerMenu.classList.remove('active');
@@ -962,7 +983,6 @@
             });
         });
         
-        // Анимации при прокрутке
         document.addEventListener('DOMContentLoaded', function() {
             const animateElements = document.querySelectorAll('.animate-on-scroll');
             
@@ -980,7 +1000,6 @@
                 observer.observe(element);
             });
             
-            // Плавная прокрутка для якорных ссылок
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
