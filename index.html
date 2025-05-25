@@ -108,14 +108,13 @@
         .header-social {
             display: flex;
             gap: 15px;
-            margin-left: auto;
-            padding-right: 20px;
+            align-items: center;
         }
 
         .header-social .social-link {
-            width: 36px;
-            height: 36px;
-            font-size: 16px;
+            width: 40px; /* Увеличил размер для чёткости */
+            height: 40px;
+            font-size: 18px; /* Увеличил иконки для пропорциональности */
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(0, 200, 255, 0.3);
             border-radius: 50%;
@@ -124,12 +123,24 @@
             justify-content: center;
             color: var(--light);
             transition: all 0.3s ease;
+            text-align: center;
+            line-height: 40px;
+            aspect-ratio: 1/1; /* Гарантирует равные размеры */
+            overflow: hidden; /* Предотвращает искажения */
+            transform: scale(1); /* Отключаем масштабирование */
+            flex-shrink: 0; /* Предотвращает сжатие */
+        }
+
+        .header-social .social-link i {
+            margin: 0;
+            display: block;
+            line-height: 40px; /* Синхронизировано с высотой */
         }
 
         .header-social .social-link:hover {
             background: var(--primary);
             color: var(--dark);
-            transform: translateY(-3px);
+            transform: translateY(-3px); /* Только вертикальное смещение */
         }
         
         nav ul {
@@ -369,42 +380,49 @@
         }
         
         .screenshot-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            overflow: hidden;
+            background: rgba(10, 10, 18, 0.7);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, calc(0.3 * var(--animations-enabled)));
-            transform: scale(calc(0.95 + (0.05 * (1 - var(--animations-enabled))));
-            transition: all calc(0.5s * var(--animations-enabled)) ease;
-            border: 2px solid transparent;
+            padding: 15px;
+            border: 1px solid rgba(0, 200, 255, calc(0.1 * var(--animations-enabled)));
+            transition: all calc(0.3s * var(--animations-enabled)) ease;
+            backdrop-filter: blur(calc(5px * var(--animations-enabled)));
+            transform: translateY(calc(20px * var(--animations-enabled)));
+            animation: slideIn 0.8s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screenshot-container:nth-child(1) { animation-delay: calc(0.2s * var(--animations-enabled))); }
+        .screenshot-container:nth-child(2) { animation-delay: calc(0.4s * var(--animations-enabled))); }
+        .screenshot-container:nth-child(3) { animation-delay: calc(0.6s * var(--animations-enabled))); }
+        
+        .screenshot-container:hover {
+            transform: translateY(calc(-10px * var(--animations-enabled)));
+            box-shadow: 0 15px 30px rgba(0, 200, 255, calc(0.1 * var(--animations-enabled)));
+            border-color: rgba(0, 200, 255, calc(0.3 * var(--animations-enabled)));
         }
         
         .screenshot-item {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+        
+        .screenshot-item img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-        }
-        
-        .screenshot-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
-            display: block;
-            transition: transform calc(0.5s * var(--animations-enabled)) ease;
-        }
-        
-        .screenshot-container:hover {
-            transform: scale(calc(1 * var(--animations-enabled) + (1 * (1 - var(--animations-enabled))));
-            box-shadow: 0 15px 40px rgba(0, 200, 255, calc(0.2 * var(--animations-enabled)));
-            border: 2px solid var(--primary);
+            transition: transform calc(0.3s * var(--animations-enabled)) ease;
         }
         
         .screenshot-container:hover img {
-            transform: scale(calc(1.05 * var(--animations-enabled) + (1 * (1 - var(--animations-enabled))));
+            transform: scale(calc(1.03 * var(--animations-enabled)));
         }
         
         .screenshot-caption {
@@ -770,7 +788,7 @@
     <section class="hero">
         <div class="container">
             <h1>ArevClient - мощный чит-клиент для Minecraft 1.16.5</h1>
-            <p>Откройте новые возможности в Minecraft с нашим продвинутым читовым клиентом. Улучшите свой игровой опыт с мощными функциями и удобным интерфейсом.</p>
+            <p>Откройте новые возможности в Minecraft с нашим продвинутым чит-клиентом. Улучшите свой игровой опыт с мощными функциями и удобным интерфейсом.</p>
             <div class="hero-btns">
                 <a href="#download" class="btn">Скачать сейчас</a>
                 <a href="#features" class="btn btn-secondary">Узнать больше</a>
@@ -884,7 +902,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 ArevClient. Все права защищены. | Не связан с Mojang AB.</p>
+            <p>© 2025 ArevClient. Все права защищены. | Не связан с Mojang AB.</p>
         </div>
     </footer>
 
